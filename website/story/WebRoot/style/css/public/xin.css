@@ -1,0 +1,398 @@
+/*=====================================
+���ȫ����ʽ
+=====================================*/
+
+/* {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+Html {
+	margin:0px;
+	padding:0px;
+	
+}
+
+Body {
+	height:100%;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	font-size:12px;
+	text-align:center;
+	background:#ffffff;
+	SCROLLBAR-FACE-COLOR: #f6f6f6;
+	SCROLLBAR-HIGHLIGHT-COLOR: #ffffff;
+	SCROLLBAR-SHADOW-COLOR: #dddddd;
+	SCROLLBAR-3DLIGHT-COLOR: #dddddd;
+	SCROLLBAR-ARROW-COLOR: #616161;
+	SCROLLBAR-TRACK-COLOR: #f6f6f6;
+	SCROLLBAR-DARKSHADOW-COLOR: #ffffff;
+	
+}
+*/
+Form, Select, Input {
+    margin:0px;
+	padding:0px;
+}
+
+Img {
+    border: 0;
+	margin:0px;
+	padding:0px;
+}
+
+Table, Tr, Td, {
+    font-size:12px;
+}
+
+.input {
+	width:105px;
+	height:16px;
+	color:#fff;
+	font-family:Verdana;
+	line-height:16px;
+	background:#292929;
+	border:1px solid #82c4de;
+}
+
+.input_1 {
+	width:75%;
+	padding-left:1%;
+	height:17px;
+	line-height:17px;
+	font-size: 12px;
+	color: #333333;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	border-left-width: 2px;
+	border-style: inset;
+	font-family: Verdana;
+	
+}
+.input_2{
+	width:90%;
+	border:1px solid #E8E9E8; 
+	background:#FBFBFB; 
+	margin-left:5px;
+	color:#666666;
+	height:18px;
+}
+.select {
+	height:20px;
+	font-size: 12px;
+	color: #333333;
+	line-height:20px;
+	padding-left:5px;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	border-left-width: 2px;
+	border-style: inset;
+	font-family: Verdana;
+}
+
+.checkbox {
+	font-size: 12px;
+	color: #333333;
+	border-width: 0px;
+	border-style: inset;
+	font-family: Verdana;
+}
+
+.button01 {
+	width:auto;
+	min-width:50px;
+	height:23px;
+	line-height:20px;
+	font-size: 12px;
+	color: #323232;
+	border:0px;
+	margin-top:7px;
+	border:1px  solid #91AFC7;
+	margin-left:20px;_margin-left:10px;
+	background:url(../../images/button.jpg);
+}
+.textarea{
+	width:59%;
+	height:90px;
+	color: #333333;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	border-left-width: 2px;
+	border-style: inset;
+	font-family: Verdana;
+}
+.font_lan {
+	color:#0560a6;
+	text-decoration:underline;
+}
+
+a:hover.font_lan {
+	color:#ff9900;
+	text-decoration:underline;
+}
+
+/*===========����==============*/
+
+.neirong{
+	width:620px;
+	height:auto;
+	padding:1%;
+	padding-bottom:15px;
+	position: absolute;
+	top: 5px;
+	left: 0px;
+	z-index: 2;
+}
+
+.neirong .top{
+	width:100%;
+	height:27px;
+	float:left;
+	background:url(../../images/neibut04.gif);
+}
+.neirong .top02right{
+	width:1px;
+	height:23px;
+	margin-top:4px;
+	float:right;
+	
+	
+}
+.neirong .top_01left{
+	width:60%;
+	height:27px;
+	float:left;
+}
+.neirong .top_01{
+	width:99.5%;
+	height:27px;
+	float:left;
+	cursor:move;
+}
+
+
+.neirong .top_01right{
+	width:45px;
+	height:12px;
+	margin-top:10px;
+	float:right;
+}
+
+.neirong .top_01right a{
+	width:40px;
+	height:12px;
+	float:left;
+	color:#006097;
+	text-decoration:none;
+	padding-left:10px;
+	background:url(../../images/gbann.gif) no-repeat left;
+}
+
+.neirong .top_01right a:hover
+{	width:40px;
+	height:12px;
+	float:left;
+	color:#000;
+	text-decoration:none;
+	padding-left:10px;
+	background:url(../../images/gbann00.gif) no-repeat left;
+}
+.neirong .top_02{
+	width:25px;
+	height:27px;
+	float:left;
+}
+.neirong .top_03{
+	width:auto;
+	height:27px;
+	float:left;
+	color:#FFFFFF;
+	font-size:14px;
+	line-height:27px;
+	padding:0px 7px;
+	text-align:center;
+	background:url(../../images/neibut02.gif);
+}
+.neirong .top_04{
+	width:8px;
+	height:27px;
+	float:left;
+}
+.neirong .midd{
+	width:99.7%;
+	height:99.5%;
+	float:left;
+	border-right:2px solid #A9C8D9;
+	border-left:2px solid #A9C8D9;
+}
+
+.neirong .midd table{
+	line-height:33px; 
+	font-size:13px;
+	background-color: #ffffff;
+	padding-right:1%;
+	text-align: left
+}
+
+.neirong .midd_01{
+	width:100%;
+	height:auto;
+	line-height:22px;
+	border-bottom:1px solid #A9C8D9;
+}
+.neirong .midd_00{
+	width:49%;
+	height:auto;
+	float:left;
+}
+.neirong .midd_001{
+	width:100%;
+	height:auto;
+	float:left;
+}
+.neirong .midd_02{
+	width:28%;
+	margin:1px 0px;
+	height:25px;
+	float:left;
+	color:#181818;
+	text-align:right;
+	padding-right:2%;
+	line-height:25px;
+	background:#F0F7FB;
+}
+.neirong .riqi{
+	width:20px;
+	height:20px;
+	float:left;
+}
+.neirong .midd_03{
+	width:65%;
+	height:25px;
+	float:left;
+	padding:2px 8px 0px 8px;
+	text-align:left;
+}
+.neirong .midd_04{
+	width:12.7%;
+	margin:1px 0px;
+	height:auto;
+	float:left;
+	padding-right:2%;
+	text-align:right;
+	color:#181818;
+	line-height:100px;
+	background:#F0F7FB;
+}
+.neirong .midd_05{
+	width:83%;
+	min-height:80px;
+	height:auto;
+	float:left;
+	padding:2px 8px 0px 8px;
+	text-align:left;
+}
+.neirong .midd_06{
+	width:12.7%;
+	margin:1px 0px;
+	height:27px;
+	float:left;
+	padding-right:2%;
+	text-align:right;
+	color:#181818;
+	line-height:27px;
+	background:#F0F7FB;
+}		
+.neirong .midd_butt{
+	width:97.8%;
+	height:35px;
+	float:left;
+	text-align:center;
+	background:#F0F7FB;
+	padding-right:2%;
+	padding-top:2px;
+	padding-bottom:2px;
+	border:1px solid #A9C8D9;
+}
+/*===========��ǩ���ı�����ʽ==============*/
+		.labelclass{
+		line-height: 20px;background:#F0F7FB; border-bottom:1px solid #A9C8D9; padding-right:1%;text-align:right; width:12%
+		}
+		
+		.dflabelclass{
+		background:#F0F7FB;padding-right:1%;text-align:right; width:12%
+		}
+		
+		.textclass{
+		width:90%;
+		border:1px solid #E8E9E8; 
+		background:#FBFBFB; 
+		margin-left:5px;
+		margin-top:5px;
+		
+		color:#666666;
+		height:22px;
+		
+		font-weight: normal;
+		font-size:12px;
+		line-height:22px
+		}
+		.textclass2{
+		width:90%;
+		border:1px solid #fff;
+		background:#fff;
+		margin-left:5px;
+		margin-top:5px;
+		color:#ACA899;
+		height:22px;
+		line-height:22px;
+		}
+		.cssloading{
+			width:100px;
+			height:auto;
+			padding:1%;
+			padding-bottom:15px;
+			position: absolute;
+			top: 40px;
+			left: 450px;
+			z-index: 3;
+		}	
+		.tdstyle{border-bottom:1px solid #A9C8D9;}
+		.spanstyle{display:-moz-inline-box; display:inline-block; width:125px}
+		.pub_radio{
+			width:18px;
+			height:18px;
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

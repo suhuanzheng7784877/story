@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
+    http://www.springframework.org/schema/tx  
+    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
+	default-autowire="byName">
+
+	<!-- 加载jdbc.properties文件   -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		lazy-init="false">
+		<property name="locations">
+			<list>
+				<value>classpath:config/jdbc.c3p0.properties</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- dbcp 配置DataSource数据源 -->
+	<!--
+	<bean id="dbcpDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxActive" value="${jdbc.maxActive}"></property>
+		<property name="maxIdle" value="${jdbc.maxIdle}"></property>
+		<property name="maxWait" value="${jdbc.maxWait}"></property>
+		<property name="minIdle" value="${jdbc.minIdle}"></property>
+		<property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}" />
+		<property name="initialSize" value="${jdbc.initialSize}"></property>
+		<property name="defaultAutoCommit" value="${jdbc.defaultAutoCommit}"></property>
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"></property>
+		<property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"></property>
+
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<property name="testOnBorrow">
+			<value>false</value>
+		</property>
+		<property name="testOnReturn">
+			<value>false</value>
+		</property>
+		<property name="validationQuery">
+			<value>select 1</value>
+		</property>
+		<property name="validationQueryTimeout">
+			<value>1</value>
+		</property>
+		<property name="numTestsPerEvictionRun">
+			<value>20</value>
+		</property>
+	</bean>
+	-->
+
+	<bean id="dbcpDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClass}" />
+		<property name="jdbcUrl" value="${jdbc.jdbcUrl}" />
+		<property name="user" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="minPoolSize" value="${jdbc.miniPoolSize}" />
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+		<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}" />
+
+		<property name="acquireRetryAttempts" value="${jdbc.acquireRetryAttempts}" />
+		<property name="acquireRetryDelay" value="${jdbc.acquireRetryDelay}" />
+		<property name="testConnectionOnCheckin" value="${jdbc.testConnectionOnCheckin}" />
+		<property name="automaticTestTable" value="${jdbc.automaticTestTable}" />
+		<property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}" />
+		<property name="checkoutTimeout" value="${jdbc.checkoutTimeout}" />
+
+	</bean>
+
+
+	<!--tomcat jdbc pool数据源配置-->
+	<!--
+		<bean id="dbcpDataSource"
+		class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+		<property name="poolProperties"> <bean
+		class="org.apache.tomcat.jdbc.pool.PoolProperties"> <property
+		name="driverClassName" value="com.mysql.jdbc.Driver"/> <property
+		name="url" value="${jdbc.url}"/> <property name="username"
+		value="root"/> <property name="password" value="111111"/> <property
+		name="jmxEnabled" value="false"/> <property name="testWhileIdle"
+		value="true"/> <property name="testOnBorrow" value="true"/> <property
+		name="testOnReturn" value="false"/> <property
+		name="validationInterval" value="15000"/> <property
+		name="validationQuery" value="SELECT 1"/> <property
+		name="timeBetweenEvictionRunsMillis" value="10000"/> <property
+		name="maxActive" value="500"/> <property name="initialSize"
+		value="100"/> <property name="maxWait" value="0"/> <property
+		name="minEvictableIdleTimeMillis" value="10000"/> <property
+		name="minIdle" value="200"/> <property name="maxIdle" value="200"/>
+		<property name="logAbandoned" value="false"/> <property
+		name="removeAbandoned" value="true"/> <property
+		name="removeAbandonedTimeout" value="60"/> <property
+		name="jdbcInterceptors"
+		value="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"/>
+		</bean> </property> </bean>
+	-->
+
+	<!--
+		类似于hibernate的SessionFactory,指定由spring容器Bean，即：LocalContainerEntityManagerFactoryBean
+	-->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="StoryPU" />
+		<property name="dataSource" ref="dbcpDataSource" />
+	</bean>
+
+	<!--配置事务-->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!--支持dao事务注解-->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- aop -->
+	<!-- 抽象类 -->
+	<bean id="AbstractAOP" class="org.glaze.framework.core.aop.base.AbstractAOP"
+		abstract="true" />
+	<!-- 控制层 -->
+	<bean id="ControllerConsumeTime" class="org.glaze.framework.core.aop.ControllerConsumeTime"></bean>
+	<!-- 持久层 -->
+	<bean id="ImplConsumeTime" class="org.glaze.framework.core.aop.ImplConsumeTime"></bean>
+
+	<!-- AOP拦截 -->
+	<aop:config>
+		<aop:aspect id="ControllerAspect" ref="ControllerConsumeTime">
+
+			<!--配置com.spring.service包下所有类或接口的所有方法-->
+			<aop:pointcut id="businessService" expression="execution(* controller.*.*(..))" />
+			<!-- 执行前的逻辑 -->
+			<aop:before pointcut-ref="businessService" method="doBefore" />
+			<!-- 执行后的逻辑 -->
+			<aop:after pointcut-ref="businessService" method="doAfter" />
+			<!-- 执行中的逻辑 -->
+			<aop:around pointcut-ref="businessService" method="doAround" />
+			<aop:after-throwing pointcut-ref="businessService"
+				method="doThrowing" throwing="ex" />
+		</aop:aspect>
+		<aop:aspect id="ImplAspect" ref="ImplConsumeTime">
+			<!--配置com.spring.service包下所有类或接口的所有方法-->
+			<aop:pointcut id="ImplService" expression="execution(* dao.impl.*.*(..))" />
+			<!-- 执行前的逻辑 -->
+			<aop:before pointcut-ref="ImplService" method="doBefore" />
+			<!-- 执行后的逻辑 -->
+			<aop:after pointcut-ref="ImplService" method="doAfter" />
+			<!-- 执行中的逻辑 -->
+			<aop:around pointcut-ref="ImplService" method="doAround" />
+			<aop:after-throwing pointcut-ref="ImplService"
+				method="doThrowing" throwing="ex" />
+		</aop:aspect>
+		<aop:aspect id="ImplBaseAspect" ref="ImplConsumeTime">
+			<!--配置com.spring.service包下所有类或接口的所有方法-->
+			<aop:pointcut id="ImplBaseService"
+				expression="execution(* org.glaze.framework.core.persistent.base.impl.*.*(..))" />
+			<!-- 执行前的逻辑 -->
+			<aop:before pointcut-ref="ImplBaseService" method="doBefore" />
+			<!-- 执行后的逻辑 -->
+			<aop:after pointcut-ref="ImplBaseService" method="doAfter" />
+			<!-- 执行中的逻辑 -->
+			<aop:around pointcut-ref="ImplBaseService" method="doAround" />
+			<aop:after-throwing pointcut-ref="ImplBaseService"
+				method="doThrowing" throwing="ex" />
+		</aop:aspect>
+	</aop:config>
+
+</beans>

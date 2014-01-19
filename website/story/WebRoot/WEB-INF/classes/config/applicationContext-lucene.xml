@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
+    http://www.springframework.org/schema/tx  
+    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
+	default-autowire="byName">
+
+	<!-- 词分析器 -->
+	<bean id="analyzer" class="org.ansj.lucene3.AnsjAnalysis">
+	</bean>
+
+	<!-- 摘要 -->
+	<bean id="fragmenter" class="org.apache.lucene.search.highlight.SimpleFragmenter">
+		<!-- 摘要显示附近的字节数 -->
+		<property name="fragmentSize" value="150"></property>
+	</bean>
+
+	<!-- 刷新索引抽象模板类 -->
+	<bean id="abstractRefreshIndex" class="lucene.AbstractRefreshIndex"
+		abstract="true">
+		<property name="dataSource" ref="dbcpDataSource"></property>
+		<property name="analyzer" ref="analyzer"></property>
+		<property name="commitBatchNum" value="600"></property>
+	</bean>
+
+	<!-- 查询结果抽象模板类 -->
+	<bean id="abstractSearchData" class="lucene.AbstractSearchData"
+		abstract="true">
+		<property name="analyzer" ref="analyzer"></property>
+		<property name="fragmenter" ref="fragmenter"></property>
+		<!-- 只显示前多少条记录 -->
+		<property name="topMaxDataSize" value="1000"></property>
+		<property name="searchPageSize" value="20"></property>
+	</bean>
+
+	<!-- 刷新新闻索引 -->
+	<bean id="newsRefreshIndex" class="lucene.index.NewsRefreshIndex"
+		parent="abstractRefreshIndex">
+	</bean>
+
+	<bean id="invitationRefreshIndex" class="lucene.index.InvitationRefreshIndex"
+		parent="abstractRefreshIndex">
+	</bean>
+
+	<bean id="articleRefreshIndex" class="lucene.index.ArticleRefreshIndex"
+		parent="abstractRefreshIndex">
+	</bean>
+
+	<!-- 查询新闻记录 -->
+	<bean id="newsSearchData" class="lucene.search.NewsSearchData"
+		parent="abstractSearchData">
+	</bean>
+
+	<!-- 查询贴子记录 -->
+	<bean id="invitationSearchData" class="lucene.search.InvitationSearchData"
+		parent="abstractSearchData">
+	</bean>
+
+	<bean id="articleSearchData" class="lucene.search.ArticleSearchData"
+		parent="abstractSearchData">
+	</bean>
+
+
+
+
+</beans>

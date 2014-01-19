@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
+    http://www.springframework.org/schema/tx  
+    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+	<bean id="IndexDataCacheJobAction" class="quartzjob.IndexDataCacheJobAction">
+		<property name="contentPageWriter" ref="contentPageWriter"></property>
+	</bean>
+
+	<!-- 业务表的信息缓存更新dao -->
+	<bean id="tableInfoDao" class="util.cache.TableInfoDao"
+		init-method="initSystemTableInfo">
+		<property name="dbcpDataSource" ref="dbcpDataSource"></property>
+	</bean>
+
+	<bean id="TableInfoCacheJobAction" class="quartzjob.TableInfoCacheJobAction">
+		<property name="tableInfoDao" ref="tableInfoDao"></property>
+	</bean>
+
+
+	<!-- Job配置 -->
+	
+	<!-- 用于生成主页静态页面 -->
+	<bean name="indexDataCacheJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>quartzjob.IndexDataCacheJobAction</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="timeout">
+					<value>1</value>
+				</entry>
+				<entry key="contentPageWriter" value-ref="contentPageWriter">
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<!-- 用于修改业务表的元数据信息：记录数 -->
+	<bean name="tableInfoCacheJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>quartzjob.TableInfoCacheJobAction</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="timeout">
+					<value>1</value>
+				</entry>
+				<entry key="tableInfoDao" value-ref="tableInfoDao">
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<!-- 定时执行JVM-FULL-GC -->
+	<bean name="systemGCJobActionJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>quartzjob.SystemGCJobAction</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="timeout">
+					<value>1</value>
+				</entry>
+			</map>
+		</property>
+
+	</bean>
+	
+	<!-- 创建所有数据索引的定时执行任务,用于文章的全文索引使用 -->
+	<bean name="createAllDataIndexJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>lucene.quartzjob.CreateAllDataIndexJobAction</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="timeout">
+					<value>1</value>
+				</entry>
+				<entry key="newsRefreshIndex" value-ref="newsRefreshIndex">
+				</entry>
+				<entry key="invitationRefreshIndex" value-ref="invitationRefreshIndex">
+				</entry>
+				<entry key="articleRefreshIndex" value-ref="articleRefreshIndex">
+				</entry>
+			</map>
+		</property>
+
+	</bean>
+
+	<!-- 触发器，频率配置 -->
+
+	<!-- 静态主页的生成触发器 -->
+	<bean id="indexDataCacheJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="indexDataCacheJob" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0/60 * * * ?</value>
+		</property>
+	</bean>
+
+	<!-- 业务表的信息缓存更新触发器 -->
+	<bean id="tableInfoCacheJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="tableInfoCacheJob" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0/30 * * * ?</value>
+		</property>
+	</bean>
+
+	<!-- JVM发生FullGC的触发器 -->
+	<bean id="systemGCJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="systemGCJobActionJob" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0 2 * * ?</value>
+		</property>
+	</bean>
+	
+	<!-- 用于全文索引 -->
+	<bean id="createAllDataIndexJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="createAllDataIndexJob" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0 3 * * ?</value>
+		</property>
+	</bean>
+
+
+	<!-- 执行配置 -->
+
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!-- 启动的定时任务列表 -->
+				<!-- 主页数据刷新任务 -->
+				<ref local="indexDataCacheJobTrigger" />
+				<!-- 回收内存任务 -->
+				<ref local="systemGCJobTrigger" />
+				<!-- 创建所有数据的搜索索引 -->
+				<ref local="createAllDataIndexJobTrigger" />
+				<!-- 业务表的信息缓存更新触发器 -->
+				<ref local="tableInfoCacheJobTrigger" />
+			</list>
+		</property>
+	</bean>
+</beans>
