@@ -1,6 +1,10 @@
 package dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.glaze.framework.core.persistent.base.impl.BaseDaoImpl;
 import org.glaze.framework.util.FileAndIOUtils;
@@ -58,10 +62,31 @@ public class NewsDaoImpl extends BaseDaoImpl<News, Integer> implements NewsDao {
 		sql.append("news news LEFT JOIN newstype ON ");
 		sql.append("newstype.id = news.newstypeId ORDER BY ");
 		sql.append(sidx).append(" ").append(sord).append(" LIMIT ?,?");
-
+		
+		String sqlString = sql.toString()+rowStartIdxAndCount[0]+rowStartIdxAndCount[1];
+		readLock.lock();
+		if(cache.containsKey(sqlString)){
+			readLock.unlock();
+			return cache.get(sqlString);
+		}else{
+			readLock.unlock();
+			writeLock.lock();
+			List<NewsBean> list = (List<NewsBean>) quaryGridListPrepare(sql.toString(),
+					NewsBean.class, rowStartIdxAndCount[0], rowStartIdxAndCount[1]);
+			cache.put(sqlString, list);
+			writeLock.unlock();
+			return list;
+		}
+		
+		/*
 		return (List<NewsBean>) quaryGridListPrepare(sql.toString(),
 				NewsBean.class, rowStartIdxAndCount[0], rowStartIdxAndCount[1]);
+				*/
 
 	}
-
+	
+	private Map<String,List<NewsBean>> cache = new HashMap<String,List<NewsBean>>();
+	private ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
+	private Lock readLock = rwl.readLock();
+	private Lock writeLock = rwl.writeLock();
 }

@@ -1846,11 +1846,11 @@ public class BaseDaoImpl<T extends Serializable, PK extends Serializable>
 			statement = connection.prepareStatement(sql);
 			for (int i = 0; i < length; i=i+2) {
 				
-				if(i==length-1){
-					statement.setObject(i + 1, parms[i]);
-				}else{
+				if(i!=length-1){
 					statement.setObject(i + 1, parms[i]);
 					statement.setObject(i + 2, parms[i+1]);
+				}else{
+					statement.setObject(i + 1, parms[i]);
 				}
 				
 				

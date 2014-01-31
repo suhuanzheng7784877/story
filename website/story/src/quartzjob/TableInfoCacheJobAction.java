@@ -21,13 +21,12 @@ public class TableInfoCacheJobAction extends QuartzJobBean {
 
 	private static Logger logger = Logger
 			.getLogger(TableInfoCacheJobAction.class);
-	
+
 	/**
-	 * 缓存业务表的一些系想你
-	 *  key:表名
-	 *  value:表元实体信息
+	 * 缓存业务表的一些系想你 key:表名 value:表元实体信息
 	 */
-	public final static Map<String,TableInfo> TableInfoCacheMap = new ConcurrentHashMap<String,TableInfo>(16,0.75F);
+	public final static Map<String, TableInfo> TableInfoCacheMap = new ConcurrentHashMap<String, TableInfo>(
+			16, 0.75F, 2);
 
 	public static Map<String, TableInfo> getTableinfocache() {
 		return TableInfoCacheMap;
@@ -43,10 +42,9 @@ public class TableInfoCacheJobAction extends QuartzJobBean {
 	public void setTimeout(int timeout) {
 		this.timeout = timeout;
 	}
-	
+
 	@Autowired
 	private TableInfoDao tableInfoDao;
-
 
 	public TableInfoDao getTableInfoDao() {
 		return tableInfoDao;

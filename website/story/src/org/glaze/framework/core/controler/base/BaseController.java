@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.glaze.framework.core.persistent.base.BaseDao;
 
 /**
@@ -13,6 +14,8 @@ import org.glaze.framework.core.persistent.base.BaseDao;
  * @author liuyan
  */
 public abstract class BaseController {
+	
+	protected Logger logger  = Logger.getLogger(BaseController.class);
 
 	/**
 	 * 给界面拼装反馈的数据Map,为了计算分页，将dao的countNumJPQLQuick计算在其中,
@@ -30,10 +33,10 @@ public abstract class BaseController {
 
 		// 总记录数
 		long records = dao.countNumCache();
-
+		
 		// 总页数
 		long total = records % rows == 0 ? records / rows : records / rows + 1;
-
+		
 		Map map = new HashMap(8, 0.75F);
 		// 数据结果集
 		map.put("result", list);
@@ -46,6 +49,7 @@ public abstract class BaseController {
 
 		// 总记录数
 		map.put("records", records);
+		
 		return map;
 	}
 

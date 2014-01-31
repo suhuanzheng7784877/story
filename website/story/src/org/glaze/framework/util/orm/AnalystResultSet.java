@@ -49,7 +49,7 @@ public class AnalystResultSet {
 	 * 缓存实体表名
 	 */
 	private final static Map<String, String> tableNameMap = new ConcurrentHashMap<String, String>(
-			initCacheTableNamesSize, 0.75F);
+			initCacheTableNamesSize, 0.75F, 4);
 
 	/**
 	 * 利用浅度克隆对象的实例对象,key：类名+方法名，value：方法对象
@@ -57,7 +57,7 @@ public class AnalystResultSet {
 	 * key：sql中select和from之间的行列 value：字段描述数组
 	 */
 	private final static Map<String, BaseVo> instenceCloneVoMap = new ConcurrentHashMap<String, BaseVo>(
-			initCacheTableNamesSize, 0.75F);
+			initCacheTableNamesSize, 0.75F, 4);
 
 	/**
 	 * 缓存已经分析过的字段信息
@@ -65,13 +65,13 @@ public class AnalystResultSet {
 	 * key：sql中select和from之间的行列 value：字段描述数组
 	 */
 	private final static Map<String, String[]> cacheColumnNamesMap = new ConcurrentHashMap<String, String[]>(
-			initCacheColumnNamesSize, 0.75F);
+			initCacheColumnNamesSize, 0.75F, 4);
 
 	/**
 	 * 转义后的字段名称缓存
 	 */
 	private final static Map<String, String> translatecolumnNameMap = new ConcurrentHashMap<String, String>(
-			initTranslatecolumnName, 0.75F);
+			initTranslatecolumnName, 0.75F, 4);
 
 	/**
 	 * 反射对象的方法实例对象,key：类名+方法名，value：方法对象
@@ -79,7 +79,7 @@ public class AnalystResultSet {
 	 * key：sql中select和from之间的行列 value：字段描述数组
 	 */
 	private final static Map<String, Method> instenceMethodMap = new ConcurrentHashMap<String, Method>(
-			initTranslatecolumnName, 0.75F);
+			initTranslatecolumnName, 0.75F, 4);
 
 	/**
 	 * 获取实体的表名，实体具有JPA的Table注解
@@ -176,9 +176,21 @@ public class AnalystResultSet {
 			throw new RuntimeException("columncount < 1");
 		}
 		String[] columnNames = new String[columncount];
-		for (int i = 1; i <= columncount; i++) {
-			String columnName = resultSetMetaData.getColumnLabel(i);
-			columnNames[i - 1] = columnName;
+		String columnName1 = null;
+		String columnName2 = null;
+		for (int i = 1; i <= columncount; i = i + 2) {
+
+			if (i != columncount) {
+				columnName1 = resultSetMetaData.getColumnLabel(i);
+				columnNames[i - 1] = columnName1;
+				columnName2 = resultSetMetaData.getColumnLabel(i + 1);
+				columnNames[i] = columnName2;
+			} else {
+				columnName1 = resultSetMetaData.getColumnLabel(i);
+				columnNames[i - 1] = columnName1;
+			}
+			columnName1 = null;
+			columnName2 = null;
 		}
 		cacheColumnNamesMap.put(selectfromSQL, columnNames);
 		return columnNames;

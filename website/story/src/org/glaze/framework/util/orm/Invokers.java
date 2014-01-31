@@ -24,12 +24,12 @@ public class Invokers {
 	/**
 	 * 调用器池
 	 */
-	final private static Map<Method, Invoker> INVOKER_MAP = new ConcurrentHashMap<Method, Invokers.Invoker>();
+	final private static Map<Method, Invoker> INVOKER_MAP = new ConcurrentHashMap<Method, Invokers.Invoker>(64,0.75F,4);
 
 	/**
 	 * 公共调用器池
 	 */
-	final private static Map<Integer, Invoker> PUBLIC_INVOKER_MAP = new ConcurrentHashMap<Integer, Invoker>();
+	final private static Map<Integer, Invoker> PUBLIC_INVOKER_MAP = new ConcurrentHashMap<Integer, Invoker>(64,0.75F,4);
 
 	final static ClassClassPath classPath = new ClassClassPath(Invokers.class);
 

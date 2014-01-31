@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.glaze.framework.core.controler.base.BaseController;
 import org.glaze.framework.util.DateUtils;
 import org.glaze.framework.util.FileAndIOUtils;
@@ -34,6 +35,8 @@ import dao.NewsDao;
 @Controller
 @RequestMapping("/news")
 public class NewsController extends BaseController {
+	
+	protected static final Logger logger  = Logger.getLogger(NewsController.class);
 
 	final String newspicRoot = PropertiesUtil
 			.getValue("story.mp3store.newspic");
@@ -61,17 +64,16 @@ public class NewsController extends BaseController {
 			@RequestParam(required = false, defaultValue = "ASC") String sord,
 			@RequestParam(required = false, defaultValue = "id") String sidx) {
 		
-		
 		// 起始记录
 		int start = (page - 1) * records;
 
 		List<NewsBean> newsBeanList = newsDao.listNewsBean(
 				sord, sidx, start, records);
 
-		return buildResponseMap(newsDao, newsBeanList, page,
+		Map<String,Object> map = buildResponseMap(newsDao, newsBeanList, page,
 				records);
 		
-
+		return map;
 	}
 
 	/**

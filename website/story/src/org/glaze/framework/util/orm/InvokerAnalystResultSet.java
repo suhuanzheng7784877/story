@@ -43,7 +43,7 @@ public class InvokerAnalystResultSet {
 	 * 缓存实体表名
 	 */
 	private final static Map<String, String> tableNameMap = new ConcurrentHashMap<String, String>(
-			tableNamesSize, 0.75F);
+			tableNamesSize, 0.75F,2);
 
 	/**
 	 * 缓存已经反射过的字段信息
@@ -51,16 +51,16 @@ public class InvokerAnalystResultSet {
 	 * key：sql中select和from之间的行列 value：字段描述数组
 	 */
 	private final static Map<String, String[]> cacheColumnNamesMap = new ConcurrentHashMap<String, String[]>(
-			cacheColumnNamesSize, 0.75F);
+			cacheColumnNamesSize, 0.75F,2);
 
 	private final static Map<String, String> translatecolumnNameMap = new ConcurrentHashMap<String, String>(
-			translatecolumnName, 0.75F);
+			translatecolumnName, 0.75F,2);
 
 	final static Map<String, BaseVo> cloneInstanceMap = new ConcurrentHashMap<String, BaseVo>(
-			tableNamesSize, 0.75F);
+			tableNamesSize, 0.75F,2);
 
 	final static Map<String, Setter> setterInstanceMap = new ConcurrentHashMap<String, Setter>(
-			translatecolumnName, 0.75F);
+			translatecolumnName, 0.75F,2);
 
 	/**
 	 * 获取实体的表名，实体具有JPA的Table注解
