@@ -107,14 +107,14 @@ public final class StringUtil {
 		if (sql == null || "".equals(sql)) {
 			return "";
 		}
-		
-		int indexWhere = sql.indexOf("WHERE");
+		String sqlToUpperCase = sql.toUpperCase();
+		int indexWhere = sqlToUpperCase.indexOf("WHERE");
 		if(indexWhere>0){
 			String fieldString = sql.substring(0, indexWhere).trim();
 			return fieldString;
 		}
 		
-		int indexFrom = sql.indexOf("ORDER BY");
+		int indexFrom = sqlToUpperCase.indexOf("ORDER BY");
 		String fieldString = sql.substring(0, indexFrom).trim();
 		return fieldString;
 	}
