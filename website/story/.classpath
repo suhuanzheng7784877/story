@@ -160,7 +160,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-tx-3.2.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-web-3.2.7.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-web-3.2.7.RELEASE-sources.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-web-3.2.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-web-3.2.7.RELEASE.jar" sourcepath="WebRoot/WEB-INF/lib/spring/spring-web-3.2.7.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-webmvc-3.2.7.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-webmvc-3.2.7.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-webmvc-3.2.7.RELEASE.jar"/>

@@ -308,6 +308,7 @@ public class AnalystResultSet {
 			int columnNamesLength = columnNames.length;
 			String columnName1 = null;
 			String columnName2 = null;
+			
 
 			// 减少循环次数
 			for (int i = 0; i < columnNamesLength; i = i + 2) {
