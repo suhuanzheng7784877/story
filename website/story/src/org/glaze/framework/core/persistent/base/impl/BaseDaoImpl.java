@@ -56,15 +56,27 @@ public class BaseDaoImpl<T extends Serializable, PK extends Serializable>
 	 * 类型
 	 */
 	private Class<T> entityClass;
-
+	
+	/**
+	 * 实体类名
+	 */
 	private String entityClassName;
-
+	
+	/**
+	 * 数据源信息
+	 */
 	protected DataSource dataSource;
-
+	
+	/**
+	 * 表名
+	 */
 	protected String tableName;
 
 	public Logger logger = null;
-
+	
+	/**
+	 * 批处理个数
+	 */
 	private final int batchSize = Integer.parseInt(PropertiesUtil
 			.getValue("core.batch.size"));
 

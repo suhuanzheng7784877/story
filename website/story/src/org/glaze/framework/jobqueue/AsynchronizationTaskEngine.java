@@ -27,7 +27,7 @@ public class AsynchronizationTaskEngine implements Runnable {
 	/**
 	 * 线程池
 	 */
-	private final ExecutorService pool = Executors.newSingleThreadExecutor();
+	private final ExecutorService pool = Executors.newFixedThreadPool(1);
 	
 	/**
 	 * 获取单例实例
@@ -73,7 +73,7 @@ public class AsynchronizationTaskEngine implements Runnable {
 	 * 
 	 * @throws AsynchronizationException
 	 */
-	public void startAsynchronizationTaskReciver()
+	private void startAsynchronizationTaskReciver()
 			throws AsynchronizationException {
 		AsynchronizationTask asynchronizationTask = null;
 		ExecuteState executeState = null;
@@ -112,9 +112,9 @@ public class AsynchronizationTaskEngine implements Runnable {
 	 * @return ExecuteState
 	 * @throws AsynchronizationException
 	 */
-	private ExecuteState execute(AsynchronizationTask asynchronizationTask)
+	private ExecuteState execute(AsynchronizationTask asynchronizationTask,Object... parameters)
 			throws AsynchronizationException {
-		return asynchronizationTask.execute();
+		return asynchronizationTask.execute(parameters);
 	}
 
 }

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.glaze.framework.core.controler.base.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,7 +15,7 @@ import dao.AdminDao;
 
 @Controller
 @RequestMapping("/mywebsiteadmin")
-public class AdminController {
+public class AdminController extends BaseController {
 
 	@Autowired
 	private AdminDao adminDao;

@@ -8,12 +8,18 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.glaze.framework.core.persistent.base.BaseDao;
+import org.glaze.framework.jobqueue.AsynchronizationTaskEngine;
 
 /**
  * 基控制层
  * @author liuyan
  */
 public abstract class BaseController {
+	
+	/**
+	 * 异步任务执行引擎
+	 */
+	protected AsynchronizationTaskEngine asynchronizationTaskEngine = AsynchronizationTaskEngine.getInstence();
 	
 	protected Logger logger  = Logger.getLogger(BaseController.class);
 

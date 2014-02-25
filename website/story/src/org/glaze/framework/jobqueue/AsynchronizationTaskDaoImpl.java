@@ -11,15 +11,15 @@ import org.glaze.framework.exception.AsynchronizationException;
  * @author liuyan
  */
 @SuppressWarnings("unchecked")
-public abstract class AsynchronizationTaskDaoImpl implements AsynchronizationTask {
+public abstract class AsynchronizationTaskDaoImpl<T extends BaseDao> implements AsynchronizationTask {
 
-	private BaseDao dao;
+	protected T dao;
 
-	public BaseDao getDao() {
+	public T getDao() {
 		return dao;
 	}
 
-	public void setDao(BaseDao dao) {
+	public void setDao(T dao){
 		this.dao = dao;
 	}
 	
