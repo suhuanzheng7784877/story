@@ -218,23 +218,12 @@ public class UserController extends BaseController {
 		UserInfo userInfo = new UserInfo();
 		user.setRegdate(new Date());
 		user.setUserInfo(userInfo);
-		
-		/*
 		boolean saveUser = userDao.save(user);
 		if (saveUser) {
 			return "redirect:/operateSuccess.jsp?operate=register";
 		} else {
 			return "redirect:/operateError.jsp?operate=register";
 		}
-		*/
-		UserAsynchronizationTaskDaoImpl userAsynchronizationTaskDaoImpl = new UserAsynchronizationTaskDaoImpl();
-		userAsynchronizationTaskDaoImpl.setDao(userDao);
-		try {
-			asynchronizationTaskEngine.submitTask(userAsynchronizationTaskDaoImpl);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		return "redirect:/operateSuccess.jsp?operate=register";
 
 	}
 
@@ -251,12 +240,25 @@ public class UserController extends BaseController {
 		UserInfo userInfo = new UserInfo();
 		user.setRegdate(new Date());
 		user.setUserInfo(userInfo);
-		boolean saveUser = userDao.save(user);
-		if (saveUser) {
-			return "success";
-		} else {
-			return "error";
+//		boolean saveUser = userDao.save(user);
+//		if (saveUser) {
+//			return "success";
+//		} else {
+//			return "error";
+//		}
+		
+		Map<String,Object> parameterMap = new HashMap<String,Object>(4);
+		parameterMap.put("user", user);
+		UserAsynchronizationTaskDaoImpl userAsynchronizationTaskDaoImpl = new UserAsynchronizationTaskDaoImpl();
+		userAsynchronizationTaskDaoImpl.setDao(userDao);
+		userAsynchronizationTaskDaoImpl.setParameterMap(parameterMap);
+		try {
+			asynchronizationTaskEngine.submitTask(userAsynchronizationTaskDaoImpl);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
+		return "success";
+
 
 	}
 

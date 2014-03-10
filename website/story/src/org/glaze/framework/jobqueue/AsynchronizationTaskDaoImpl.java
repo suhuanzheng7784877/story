@@ -1,5 +1,6 @@
 package org.glaze.framework.jobqueue;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import org.glaze.framework.core.persistent.base.BaseDao;
@@ -12,8 +13,37 @@ import org.glaze.framework.exception.AsynchronizationException;
  */
 @SuppressWarnings("unchecked")
 public abstract class AsynchronizationTaskDaoImpl<T extends BaseDao> implements AsynchronizationTask {
-
+	
+	/**
+	 * dao
+	 */
 	protected T dao;
+	
+	/**
+	 * 需要执行业务的参数[数组模式]
+	 */
+	protected Object[] parameters;
+	
+	/**
+	 * 需要执行业务的参数[map模式]
+	 */
+	protected Map<String, Object> parameterMap;
+
+	public Map<String, Object> getParameterMap() {
+		return parameterMap;
+	}
+
+	public void setParameterMap(Map<String, Object> parameterMap) {
+		this.parameterMap = parameterMap;
+	}
+
+	public Object[] getParameters() {
+		return parameters;
+	}
+
+	public void setParameters(Object[] parameters) {
+		this.parameters = parameters;
+	}
 
 	public T getDao() {
 		return dao;
@@ -27,14 +57,14 @@ public abstract class AsynchronizationTaskDaoImpl<T extends BaseDao> implements 
 	 * dao执行业务逻辑
 	 */
 	@Override
-	public abstract ExecuteState execute(Object... parameters)
+	public abstract ExecuteState execute()
 			throws AsynchronizationException ;
-	
-	/**
-	 * dao执行业务逻辑
-	 */
+
 	@Override
-	public abstract ExecuteState execute(Map<String, Object> parameterMap)
-			throws AsynchronizationException ;
+	public String toString() {
+		return "AsynchronizationTaskDaoImpl [dao=" + dao + ", parameterMap="
+				+ parameterMap + ", parameters=" + Arrays.toString(parameters)
+				+ "]";
+	}
 
 }

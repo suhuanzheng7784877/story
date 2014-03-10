@@ -1,7 +1,5 @@
 package dao.async;
 
-import java.util.Map;
-
 import org.glaze.framework.exception.AsynchronizationException;
 import org.glaze.framework.jobqueue.AsynchronizationTaskDaoImpl;
 import org.glaze.framework.jobqueue.ExecuteState;
@@ -9,26 +7,27 @@ import org.glaze.framework.jobqueue.ExecuteState;
 import pojo.User;
 import dao.UserDao;
 
+/**
+ * UserDaoImpl实现下的异步任务接口
+ * 
+ * @author liuyan
+ */
 public class UserAsynchronizationTaskDaoImpl extends
 		AsynchronizationTaskDaoImpl<UserDao> {
+	
+	
 
 	@Override
-	public ExecuteState execute(Object... parameters)
+	public ExecuteState execute()
 			throws AsynchronizationException {
 		
-		boolean result = this.dao.save((User)parameters[0]);
+		boolean result = this.dao.save((User)parameterMap.get("user"));
 		
 		if(result){
 			return new ExecuteState(0,"ok");
 		}
 		
 		return new ExecuteState(1,"error");
-	}
-
-	@Override
-	public ExecuteState execute(Map<String, Object> parameterMap)
-			throws AsynchronizationException {
-		return null;
 	}
 
 }

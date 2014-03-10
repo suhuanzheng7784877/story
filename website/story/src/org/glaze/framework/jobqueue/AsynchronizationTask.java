@@ -1,7 +1,5 @@
 package org.glaze.framework.jobqueue;
 
-import java.util.Map;
-
 import org.glaze.framework.exception.AsynchronizationException;
 
 /**
@@ -17,14 +15,6 @@ public interface AsynchronizationTask {
 	 * @return
 	 * @throws AsynchronizationException
 	 */
-	public ExecuteState execute(Object... parameters) throws AsynchronizationException;
-	
-	/**
-	 * 任务执行逻辑
-	 * @param parameters
-	 * @return
-	 * @throws AsynchronizationException
-	 */
-	public ExecuteState execute(Map<String,Object> parameterMap) throws AsynchronizationException;
+	public ExecuteState execute() throws AsynchronizationException;
 
 }
