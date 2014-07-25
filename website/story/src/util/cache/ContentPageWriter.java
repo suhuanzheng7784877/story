@@ -124,6 +124,8 @@ public class ContentPageWriter {
 	public void setInvitationDao(InvitationDao invitationDao) {
 		this.invitationDao = invitationDao;
 	}
+	
+	static String indexPageFileName = "index.html";
 
 	/**
 	 * 系统启动时生成首页静态页面
@@ -138,7 +140,7 @@ public class ContentPageWriter {
 		String templatePath = ProjectInfoUtil.getTemplatePath(projectRealPath);
 
 		// 生成静态页面后的文件路径以及名字
-		String staticFileName = projectRealPath + "index.html";
+		String staticFileName = projectRealPath + indexPageFileName;
 
 		logger.info("生成静态文件路径:" + staticFileName);
 

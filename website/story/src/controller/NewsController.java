@@ -37,8 +37,11 @@ import dao.NewsDao;
 public class NewsController extends BaseController {
 	
 	protected static final Logger logger  = Logger.getLogger(NewsController.class);
-
-	final String newspicRoot = PropertiesUtil
+	
+	/**
+	 * 新闻pic根路径
+	 */
+	private static final String newspicRoot = PropertiesUtil
 			.getValue("story.mp3store.newspic");
 
 	// 项目的绝对路径
