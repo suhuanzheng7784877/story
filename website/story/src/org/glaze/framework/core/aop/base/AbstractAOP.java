@@ -19,7 +19,7 @@ public abstract class AbstractAOP {
 	 * @throws Throwable
 	 */
 	public Object doAround(ProceedingJoinPoint proceedingJoinPoint)
-			throws Throwable {
+			throws Throwable {		
 		String classname = proceedingJoinPoint.getTarget().getClass().getName();
 		String method = proceedingJoinPoint.getSignature().getName();
 		long time = System.currentTimeMillis();
