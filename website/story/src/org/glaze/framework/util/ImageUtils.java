@@ -17,7 +17,7 @@ import com.google.code.kaptcha.util.Config;
  */
 public class ImageUtils {
 
-	final static DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
+	private final static DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
 
 	/**
 	 * 生成二进制的4位随机码
@@ -26,21 +26,22 @@ public class ImageUtils {
 	 */
 	public final static byte[] generateSecretKey(StringBuilder sb) {
 
-		String secretKey = StringUtil.generateRandom4Number();
+		StringBuilder secretKey = StringUtil.generateRandom4Number();
 		sb.append(secretKey);
-		return generateByteArray(null, secretKey);
+		return generateByteArray(null, secretKey.toString());
 	}
-	
+
 	/**
 	 * 生成二进制的4位随机码
 	 * 
 	 * @return
 	 */
-	public final static byte[] generateSecretKey(Properties properties,StringBuilder sb) {
+	public final static byte[] generateSecretKey(Properties properties,
+			StringBuilder sb) {
 
-		String secretKey = StringUtil.generateRandom4Number();
+		StringBuilder secretKey = StringUtil.generateRandom4Number();
 		sb.append(secretKey);
-		return generateByteArray(properties, secretKey);
+		return generateByteArray(properties, secretKey.toString());
 	}
 
 	/**
@@ -63,7 +64,8 @@ public class ImageUtils {
 
 		BufferedImage bufferedImage = defaultKaptcha.createImage(outString);
 
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		ByteArrayOutputStream out = new ByteArrayOutputStream(2*1024);
+
 		try {
 			ImageIO.write(bufferedImage, "jpg", out);
 			return out.toByteArray();
@@ -74,8 +76,11 @@ public class ImageUtils {
 			bufferedImage.flush();
 			bufferedImage = null;
 			try {
-				out.close();
-				out = null;
+				if (out != null) {
+					out.close();
+					out = null;
+				}
+
 			} catch (IOException e) {
 				e.printStackTrace();
 				return null;

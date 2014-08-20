@@ -20,15 +20,14 @@ import com.google.code.kaptcha.util.Config;
 
 /**
  * This servlet uses the settings passed into it via the Producer api.
- *
+ * 
  * @author testvoogd@hotmail.com
  * @author jon
  * @author cliffano
  */
 @SuppressWarnings("serial")
-public class KaptchaServlet extends HttpServlet implements Servlet
-{
-	private Properties props = new Properties();
+public class KaptchaServlet extends HttpServlet implements Servlet {
+	private final Properties props = new Properties();
 
 	private Producer kaptchaProducer = null;
 
@@ -38,20 +37,18 @@ public class KaptchaServlet extends HttpServlet implements Servlet
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
 	 */
 	@Override
-	public void init(ServletConfig conf) throws ServletException
-	{
+	public void init(ServletConfig conf) throws ServletException {
 		super.init(conf);
 
 		// Switch off disk based caching.
 		ImageIO.setUseCache(false);
 
 		Enumeration<?> initParams = conf.getInitParameterNames();
-		while (initParams.hasMoreElements())
-		{
+		while (initParams.hasMoreElements()) {
 			String key = (String) initParams.nextElement();
 			String value = conf.getInitParameter(key);
 			this.props.put(key, value);
@@ -66,8 +63,7 @@ public class KaptchaServlet extends HttpServlet implements Servlet
 	/** */
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException
-	{
+			throws ServletException, IOException {
 		// Set to expire far in the past.
 		resp.setDateHeader("Expires", 0);
 		// Set standard HTTP/1.1 no-cache headers.
@@ -76,6 +72,9 @@ public class KaptchaServlet extends HttpServlet implements Servlet
 		resp.addHeader("Cache-Control", "post-check=0, pre-check=0");
 		// Set standard HTTP/1.0 no-cache header.
 		resp.setHeader("Pragma", "no-cache");
+
+		// 设置buffer
+		resp.setBufferSize(4 * 1024);
 
 		// return a jpeg
 		resp.setContentType("image/jpeg");

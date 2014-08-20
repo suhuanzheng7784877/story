@@ -33,7 +33,6 @@ public class StaticPageController {
 	@RequestMapping(value = "/updateIndex.action")
 	@ResponseBody
 	public boolean updateIndex(HttpServletRequest request) {
-		boolean result = false;
 
 		// 1-获取静态页面相关路径
 		// 项目的绝对路径
@@ -49,9 +48,11 @@ public class StaticPageController {
 
 		// 2-获取主页的动态数据
 		Map<String, Object> pageData = contentPageWriter.refreshIndexData();
-
+		
+		// 结果
+		
 		// 3-调用方法，生成静态页面
-		result = ContentPageWriter.analysisAndGenerateTemplate(templatePath,
+		boolean result = ContentPageWriter.analysisAndGenerateTemplate(templatePath,
 				ContentPageWriter.templateName, staticFileName, pageData);
 
 		return result;

@@ -61,7 +61,7 @@ public final class StringUtil {
 	 *            number
 	 * @return
 	 */
-	public static String generateRandom4Number() {
+	public static StringBuilder generateRandom4Number() {
 		return generateRandom(4);
 
 	}
@@ -73,7 +73,7 @@ public final class StringUtil {
 	 *            number
 	 * @return
 	 */
-	public static String generateRandom6Number() {
+	public static StringBuilder generateRandom6Number() {
 		return generateRandom(6);
 
 	}
@@ -85,14 +85,23 @@ public final class StringUtil {
 	 *            number
 	 * @return
 	 */
-	public static String generateRandom(int number) {
+	public static StringBuilder generateRandom(int number) {
 
 		StringBuilder sb = new StringBuilder(number);
-		for (int i = 0; i < number; i++) {
-			int p = random.nextInt(10);
-			sb.append(p);
+		for (int i = 0; i < number; i = i + 2) {
+			int p1;
+			if (i + 1 < number) {
+				p1 = random.nextInt(10);
+				sb.append(p1);
+				p1 = random.nextInt(10);
+				sb.append(p1);
+			} else {
+				p1 = random.nextInt(10);
+				sb.append(p1);
+			}
+
 		}
-		return sb.toString();
+		return sb;
 
 	}
 
@@ -109,11 +118,11 @@ public final class StringUtil {
 		}
 		String sqlToUpperCase = sql.toUpperCase();
 		int indexWhere = sqlToUpperCase.indexOf("WHERE");
-		if(indexWhere>0){
+		if (indexWhere > 0) {
 			String fieldString = sql.substring(0, indexWhere).trim();
 			return fieldString;
 		}
-		
+
 		int indexFrom = sqlToUpperCase.indexOf("ORDER BY");
 		String fieldString = sql.substring(0, indexFrom).trim();
 		return fieldString;

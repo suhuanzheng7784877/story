@@ -40,13 +40,14 @@ import freemarker.template.TemplateException;
 public class ContentPageWriter {
 
 	// 日志
-	private final static Logger logger = Logger.getLogger(ContentPageWriter.class);
+	private final static Logger logger = Logger
+			.getLogger(ContentPageWriter.class);
 
 	// freemaker的配置
 	final static Configuration config = new Configuration();
 
 	final static DefaultObjectWrapper defaultObjectWrapper = new DefaultObjectWrapper();
-	
+
 	// 模板的名字
 	public final static String templateName = "/index_nd_20130510.ftl";
 
@@ -124,7 +125,7 @@ public class ContentPageWriter {
 	public void setInvitationDao(InvitationDao invitationDao) {
 		this.invitationDao = invitationDao;
 	}
-	
+
 	static String indexPageFileName = "index.html";
 
 	/**
@@ -154,6 +155,8 @@ public class ContentPageWriter {
 
 	}
 
+	Map<String, Object> pageData = new HashMap<String, Object>(16, 0.75f);
+
 	/**
 	 * 刷新静态页要显示的数据
 	 * 
@@ -161,7 +164,10 @@ public class ContentPageWriter {
 	 */
 	public Map<String, Object> refreshIndexData() {
 
-		Map<String, Object> pageData = new HashMap<String, Object>(16, 0.75f);
+		return buildPageDate();
+	}
+
+	private Map<String, Object> buildPageDate() {
 
 		// 要显示在前台的数据
 		List<Article> articleList = null;
@@ -190,6 +196,8 @@ public class ContentPageWriter {
 		// 帖子总数
 		invitationCount = invitationDao.countNumSQLQuick();
 
+		Map<String, Object> pageData = new HashMap<String, Object>(16, 0.75f);
+
 		pageData.put("articleList", articleList);
 		pageData.put("storyMp3List", storyMp3List);
 		pageData.put("newsList", newsList);
@@ -200,7 +208,6 @@ public class ContentPageWriter {
 		pageData.put("storyMp3Count", storyMp3Count);
 		pageData.put("userCount", userCount);
 		pageData.put("invitationCount", invitationCount);
-
 		return pageData;
 	}
 
