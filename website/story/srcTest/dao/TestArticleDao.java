@@ -16,10 +16,17 @@ public class TestArticleDao extends FatherTest {
 			ArticleDao.class);
 	static ArticleCommentDao articleCommentDao = springAppContent.getBean(
 			"articleCommentDao", ArticleCommentDao.class);
-
+	
+	@Test
+	public void test00(){
+	}
+	
 	@Test
 	public void test01() {
-
+		
+		
+		
+		
 		Article article = new Article();
 		article.setContent("内容1");
 		article.setIsPass("1");

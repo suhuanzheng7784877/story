@@ -1,16 +1,15 @@
-
-                ParallelExecute -- Concurrent Building Blocks
+                Story -- Concurrent Building Blocks
                 ==============================================
 已经实现                
-1.架构搭建(将hibernate换成mybatise)
-
-2.后台业务服务
-
-3.主页静态页面生成
 
 未实现
-4.用户登陆
+1-业务功能：
+	1.用户登陆
 
-5.用户注册
+	2.用户注册
 
-6.主页功能细化
+	3.主页功能细化
+2-技术框架：
+	1.查询接口泛化为List<Map>
+	
+	2.

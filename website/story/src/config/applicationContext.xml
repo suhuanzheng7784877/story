@@ -20,6 +20,8 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="TestEhcache" class="cache.TestEhcache"></bean>
 
 	<bean id="AsynchronizationTaskEngine" class="org.glaze.framework.jobqueue.AsynchronizationTaskEngine"
 		init-method="initAsynchronizationTaskEngineThread"></bean>

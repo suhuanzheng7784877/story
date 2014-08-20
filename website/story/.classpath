@@ -27,7 +27,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons/commons-fileupload-1.3.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons/commons-io-2.4-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons/commons-io-2.4-sources.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons/commons-io-2.4.jar" sourcepath="WebRoot/WEB-INF/lib/commons/commons-io-2.4-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons/commons-lang3-3.2.1-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons/commons-lang3-3.2.1-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons/commons-lang3-3.2.1.jar"/>
@@ -118,7 +118,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-aspects-3.2.9.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-beans-3.2.9.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-beans-3.2.9.RELEASE-sources.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-beans-3.2.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-beans-3.2.9.RELEASE.jar" sourcepath="WebRoot/WEB-INF/lib/spring/spring-beans-3.2.9.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-build-src-3.2.9.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-context-3.2.9.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-context-3.2.9.RELEASE-sources.jar"/>
@@ -164,7 +164,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-tx-3.2.9.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-web-3.2.9.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-web-3.2.9.RELEASE-sources.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-web-3.2.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-web-3.2.9.RELEASE.jar" sourcepath="WebRoot/WEB-INF/lib/spring/spring-web-3.2.9.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-webmvc-3.2.9.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-webmvc-3.2.9.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring/spring-webmvc-3.2.9.RELEASE.jar"/>
