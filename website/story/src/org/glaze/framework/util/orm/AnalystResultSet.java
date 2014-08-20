@@ -38,7 +38,7 @@ public class AnalystResultSet {
 	/**
 	 * 同一个sql缓存的字段数组大小
 	 */
-	private final static int initCacheColumnNamesSize = 32;
+	private final static int initCacheColumnNamesSize = 64;
 
 	/**
 	 * 字段转换后的setXXX方法名
@@ -49,7 +49,7 @@ public class AnalystResultSet {
 	 * 缓存实体表名
 	 */
 	private final static Map<String, String> tableNameMap = new ConcurrentHashMap<String, String>(
-			initCacheTableNamesSize, 0.75F, 4);
+			initCacheTableNamesSize, 0.75F, 8);
 
 	/**
 	 * 利用浅度克隆对象的实例对象,key：类名+方法名，value：方法对象
@@ -57,7 +57,7 @@ public class AnalystResultSet {
 	 * key：sql中select和from之间的行列 value：字段描述数组
 	 */
 	private final static Map<String, BaseVo> instenceCloneVoMap = new ConcurrentHashMap<String, BaseVo>(
-			initCacheTableNamesSize, 0.75F, 4);
+			initCacheTableNamesSize, 0.75F, 8);
 
 	/**
 	 * 缓存已经分析过的字段信息
@@ -65,13 +65,13 @@ public class AnalystResultSet {
 	 * key：sql中select和from之间的行列 value：字段描述数组
 	 */
 	private final static Map<String, String[]> cacheColumnNamesMap = new ConcurrentHashMap<String, String[]>(
-			initCacheColumnNamesSize, 0.75F, 4);
+			initCacheColumnNamesSize, 0.75F, 8);
 
 	/**
 	 * 转义后的字段名称缓存
 	 */
 	private final static Map<String, String> translatecolumnNameMap = new ConcurrentHashMap<String, String>(
-			initTranslatecolumnName, 0.75F, 4);
+			initTranslatecolumnName, 0.75F, 8);
 
 	/**
 	 * 反射对象的方法实例对象,key：类名+方法名，value：方法对象
@@ -79,7 +79,7 @@ public class AnalystResultSet {
 	 * key：sql中select和from之间的行列 value：字段描述数组
 	 */
 	private final static Map<String, Method> instenceMethodMap = new ConcurrentHashMap<String, Method>(
-			initTranslatecolumnName, 0.75F, 4);
+			initTranslatecolumnName, 0.75F, 8);
 
 	/**
 	 * 获取实体的表名，实体具有JPA的Table注解
