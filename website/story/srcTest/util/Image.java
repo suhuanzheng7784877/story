@@ -21,9 +21,9 @@ public class Image {
 	@Test
 	public void test01() {
 
-		String outString = StringUtil.generateRandom4Number();
+		StringBuilder outString = StringUtil.generateRandom4Number();
 
-		byte[] bytes = ImageUtils.generateByteArray(null, outString);
+		byte[] bytes = ImageUtils.generateByteArray(null, outString.toString());
 
 		File file = new File("c:/1.jpg");
 		try {
